@@ -1,6 +1,25 @@
 [gd_scene format=3 uid="uid://ckfq7chkiamec"]
 
+[ext_resource type="PackedScene" uid="uid://b17yj4t5fgkmk" path="res://Main Folder/player.tscn" id="1_46qaj"]
+[ext_resource type="Texture2D" uid="uid://d0bchl3846ala" path="res://Sprites/KitchenTile.png" id="1_jgcam"]
+
 [sub_resource type="Environment" id="Environment_g4v7s"]
+fog_enabled = true
+fog_light_color = Color(0.21, 0.031499993, 0, 1)
+fog_density = 0.025
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tasv8"]
+albedo_texture = ExtResource("1_jgcam")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g4v7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgcam"]
+size = Vector3(2, 0.001, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(1, 12.457031, 79.973434)
 
 [node name="Main Scene" type="Node3D" unique_id=1132046088]
 
@@ -8,4 +27,37 @@
 environment = SubResource("Environment_g4v7s")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1702843704]
-visible = false
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.0137076, 0)
+
+[node name="Floors" type="Node3D" parent="." unique_id=1795979575]
+
+[node name="Floor1" type="MeshInstance3D" parent="Floors" unique_id=839473430]
+transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tasv8")
+mesh = SubResource("PlaneMesh_g4v7s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floors/Floor1" unique_id=1934158970]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floors/Floor1/StaticBody3D" unique_id=1612737929]
+shape = SubResource("BoxShape3D_jgcam")
+
+[node name="Player" parent="." unique_id=1485220397 instance=ExtResource("1_46qaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09440911, 0, 0.04834366)
+
+[node name="Walls" type="StaticBody3D" parent="." unique_id=965435648]
+
+[node name="Wall1" type="CollisionShape3D" parent="Walls" unique_id=423161198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5, 6.19, 0)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="Wall2" type="CollisionShape3D" parent="Walls" unique_id=204686741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, 6.19, 0)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="Wall3" type="CollisionShape3D" parent="Walls" unique_id=537933068]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 6.19, -39.5)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="Wall4" type="CollisionShape3D" parent="Walls" unique_id=603095151]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 6.19, 39.5)
+shape = SubResource("BoxShape3D_yf5fn")

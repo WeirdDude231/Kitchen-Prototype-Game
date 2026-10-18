@@ -11,13 +11,19 @@ config_version=5
 [application]
 
 config/name="Kitchen Pit Prototype 2"
+run/main_scene="uid://ckfq7chkiamec"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+run/max_fps=60
 config/icon="res://Sprites/icon.svg"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[global_group]
+
+Player=""
 
 [input]
 

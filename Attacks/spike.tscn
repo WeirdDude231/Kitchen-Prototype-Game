@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://do0pqgyafnjoc"]
+
+[ext_resource type="Script" uid="uid://dxrmxulf5mx04" path="res://Scripts/SpikeCode.gd" id="1_iryre"]
+[ext_resource type="Texture2D" uid="uid://bpcl4flp1kny5" path="res://Sprites/Spike.png" id="1_y3x3u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ygjop"]
+height = 0.11734009
+
+[node name="Spike" type="Node3D" unique_id=928546590]
+script = ExtResource("1_iryre")
+Proximity = true
+
+[node name="Spike Base" type="MeshInstance3D" parent="." unique_id=1003777644]
+transform = Transform3D(0.685, 0, 0, 0, 0.685, 0, 0, 0, 0.685, 0, -0.016860962, 0)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = SubResource("CylinderMesh_ygjop")
+
+[node name="Spike Image" type="Sprite3D" parent="." unique_id=884743121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3271228, 0)
+billboard = 2
+texture = ExtResource("1_y3x3u")
