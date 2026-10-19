@@ -9,6 +9,9 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="CylinderMesh" id="CylinderMesh_ygjop"]
 height = 0.11734009
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.5229492, 1, 0.54418945)
+
 [node name="Spike" type="Node3D" unique_id=928546590]
 script = ExtResource("1_iryre")
 Proximity = true
@@ -22,3 +25,10 @@ mesh = SubResource("CylinderMesh_ygjop")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3271228, 0)
 billboard = 2
 texture = ExtResource("1_y3x3u")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=794048325 groups=["Hurtbox"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1634035175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0026855469, -3.0551455, -0.0010986328)
+shape = SubResource("BoxShape3D_g4v7s")
+debug_color = Color(0, 0.5950001, 0.7, 1)

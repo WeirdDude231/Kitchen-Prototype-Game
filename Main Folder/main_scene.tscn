@@ -2,11 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://b17yj4t5fgkmk" path="res://Main Folder/player.tscn" id="1_46qaj"]
 [ext_resource type="Texture2D" uid="uid://d0bchl3846ala" path="res://Sprites/KitchenTile.png" id="1_jgcam"]
+[ext_resource type="Script" uid="uid://b6bn4gw6rg4gs" path="res://Scripts/Global.gd" id="1_tasv8"]
+[ext_resource type="PackedScene" uid="uid://dly2tv1ydo1wi" path="res://Objects/spawner.tscn" id="4_2mdd8"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 fog_enabled = true
 fog_light_color = Color(0.21, 0.031499993, 0, 1)
 fog_density = 0.025
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_g4v7s"]
+vertices = PackedVector3Array(-39.5, 0.4995, -39.5, -39.5, 0.4995, 39.5, 39.5, 0.4995, 39.5, 39.5, 0.4995, -39.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tasv8"]
 albedo_texture = ExtResource("1_jgcam")
@@ -22,6 +28,7 @@ size = Vector3(2, 0.001, 2)
 size = Vector3(1, 12.457031, 79.973434)
 
 [node name="Main Scene" type="Node3D" unique_id=1132046088]
+script = ExtResource("1_tasv8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=328960508]
 environment = SubResource("Environment_g4v7s")
@@ -29,16 +36,19 @@ environment = SubResource("Environment_g4v7s")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1702843704]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.0137076, 0)
 
-[node name="Floors" type="Node3D" parent="." unique_id=1795979575]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=75226128]
+navigation_mesh = SubResource("NavigationMesh_g4v7s")
 
-[node name="Floor1" type="MeshInstance3D" parent="Floors" unique_id=839473430]
+[node name="Floors" type="Node3D" parent="NavigationRegion3D" unique_id=1795979575]
+
+[node name="Floor1" type="MeshInstance3D" parent="NavigationRegion3D/Floors" unique_id=839473430]
 transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_tasv8")
 mesh = SubResource("PlaneMesh_g4v7s")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floors/Floor1" unique_id=1934158970]
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Floors/Floor1" unique_id=1934158970]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floors/Floor1/StaticBody3D" unique_id=1612737929]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floors/Floor1/StaticBody3D" unique_id=1612737929]
 shape = SubResource("BoxShape3D_jgcam")
 
 [node name="Player" parent="." unique_id=1485220397 instance=ExtResource("1_46qaj")]
@@ -61,3 +71,6 @@ shape = SubResource("BoxShape3D_yf5fn")
 [node name="Wall4" type="CollisionShape3D" parent="Walls" unique_id=603095151]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 6.19, 39.5)
 shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="Spawner" parent="." unique_id=341464203 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014994621, 0.00049972534, -13.161213)

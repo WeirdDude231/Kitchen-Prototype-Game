@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://17ho7m8ggcrl"]
+
+[ext_resource type="Script" uid="uid://6802nfodkrr3" path="res://Scripts/enemy.gd" id="1_edmjf"]
+[ext_resource type="Texture2D" uid="uid://das5xolfid4dv" path="res://Sprites/LivingSteak.png" id="2_dnm5c"]
+[ext_resource type="Texture2D" uid="uid://chv6gw3elrfl1" path="res://Sprites/PlateEnemyMeat.png" id="3_lc1h8"]
+[ext_resource type="Texture2D" uid="uid://bjh01fij0t0ex" path="res://Sprites/PoisonSludge.png" id="3_yfe2k"]
+[ext_resource type="Texture2D" uid="uid://dbtsh74eleirg" path="res://Sprites/DevilRat.png" id="4_756aq"]
+[ext_resource type="Texture2D" uid="uid://c8jhfhqcxxlpn" path="res://Sprites/PoisonSludgePlate.png" id="5_a7q3k"]
+[ext_resource type="Texture2D" uid="uid://cfe42sfsk0wby" path="res://Sprites/EvilRatPlate.png" id="7_gmmfk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3xos"]
+atlas = ExtResource("2_dnm5c")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfe2k"]
+atlas = ExtResource("2_dnm5c")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebisp"]
+atlas = ExtResource("3_lc1h8")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_205hv"]
+atlas = ExtResource("3_lc1h8")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqgh6"]
+atlas = ExtResource("3_yfe2k")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc1h8"]
+atlas = ExtResource("3_yfe2k")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tco3"]
+atlas = ExtResource("5_a7q3k")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5sbb"]
+atlas = ExtResource("5_a7q3k")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7q3k"]
+atlas = ExtResource("4_756aq")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmmfk"]
+atlas = ExtResource("4_756aq")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g43p"]
+atlas = ExtResource("7_gmmfk")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qeivt"]
+atlas = ExtResource("7_gmmfk")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3xos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfe2k")
+}],
+"loop": 1,
+"name": &"Meat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebisp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_205hv")
+}],
+"loop": 1,
+"name": &"MeatDish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqgh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lc1h8")
+}],
+"loop": 1,
+"name": &"Poison",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tco3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5sbb")
+}],
+"loop": 1,
+"name": &"PoisonDish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7q3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmmfk")
+}],
+"loop": 1,
+"name": &"Rat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g43p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qeivt")
+}],
+"loop": 1,
+"name": &"RatDish",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=2127081492 groups=["Enemy"]]
+script = ExtResource("1_edmjf")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1445256249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6457634, 0)
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"Meat"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1465577515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1415857555]
+avoidance_enabled = true
+
+[node name="EndKnock" type="Timer" parent="." unique_id=1859513864]
+autostart = true
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1772262476]
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="timeout" from="EndKnock" to="." method="_on_end_knock_timeout"]
