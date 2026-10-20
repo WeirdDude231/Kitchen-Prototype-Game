@@ -73,4 +73,25 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 6
 shape = SubResource("BoxShape3D_yf5fn")
 
 [node name="Spawner" parent="." unique_id=341464203 instance=ExtResource("4_2mdd8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014994621, 0.00049972534, -13.161213)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.50003, 0.0005016327, -34.036625)
+
+[node name="Spawner2" parent="." unique_id=1137349065 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.040222, 0.0005054474, -33.13058)
+
+[node name="Spawner3" parent="." unique_id=748839991 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.842793, 0.0005016327, 31.567303)
+
+[node name="Spawner4" parent="." unique_id=590920447 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.69746, 0.0005054474, 32.473347)
+
+[node name="Spawner5" parent="." unique_id=654316117 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.842793, 0.0005016327, -2.0143967)
+
+[node name="Spawner6" parent="." unique_id=1621684904 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.69746, 0.0005054474, -1.1083527)
+
+[node name="Spawner7" parent="." unique_id=867189657 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25531006, 0.0005016327, -34.036625)
+
+[node name="Spawner8" parent="." unique_id=1116006600 instance=ExtResource("4_2mdd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14587593, 0.0005016327, 31.567303)

@@ -2,6 +2,7 @@ extends Node
 
 #Loading
 #Attacks and traps
+var PlayerMeleeBox = load("res://Objects/melee_zone.tscn")
 var SpikeStrip = load("res://Attacks/spike_strip.tscn")
 
 #Enemy assets
@@ -13,6 +14,7 @@ var MeatDish = load("res://Sprites/PlateEnemyMeat.png")
 var RatDish = load("res://Sprites/EvilRatPlate.png")
 var PsnDish = load("res://Sprites/PoisonSludgePlate.png")
 
+
 #Stages
 var AttackID = 0 #Which attack to execute, each attack has an ID and will be set off by a timer.
 #Once this timer goes off the attack will execute right away, there is one timer.
@@ -22,7 +24,8 @@ var Stage = 1 #Starting stage, nothing happens during this time and only a cutsc
 #Other stuff
 var target
 var DamageModifier = 0 #How much damage to add
-var DamageMultiplyier = 1.0 #How much damage to multiply
+var DamageMultiplier = 1.0 #How much damage to multiply
+var KnockPower = 1.75
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

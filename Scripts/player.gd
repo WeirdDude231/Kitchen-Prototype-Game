@@ -12,6 +12,8 @@ const bob_freq = 2.0
 const bob_amp = 0.06
 var t_bob = 0.0
 
+var MeleeCooldown = 0.0 #How long to wait between melee swings
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 
@@ -54,6 +56,14 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+	if Input.is_action_just_pressed("attack") && MeleeCooldown <= 0.0:
+		var melee = Global.PlayerMeleeBox.instantiate()
+		melee.global_position = global_position
+		melee.player = self
+		get_tree().current_scene.add_child(melee)
+		MeleeCooldown = 0.65
+	
+	if MeleeCooldown > 0.0: MeleeCooldown -= 1*delta
 		
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO

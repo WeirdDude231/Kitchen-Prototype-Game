@@ -144,9 +144,17 @@ shape = SubResource("CapsuleShape3D_g4v7s")
 avoidance_enabled = true
 
 [node name="EndKnock" type="Timer" parent="." unique_id=1859513864]
+wait_time = 0.05
 autostart = true
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1772262476]
 
+[node name="Area3D" type="Area3D" parent="." unique_id=246934893]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1723040250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g4v7s")
+
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
 [connection signal="timeout" from="EndKnock" to="." method="_on_end_knock_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

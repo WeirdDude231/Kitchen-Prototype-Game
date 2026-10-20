@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dubh01oec4etv"]
+
+[ext_resource type="Script" uid="uid://dltycts31mxsf" path="res://Scripts/MeleeCode.gd" id="1_0rqc0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2.5795288, 2.2299805, 3.1967773)
+
+[node name="MeleeZone" type="Area3D" unique_id=2138125976 groups=["Melee"]]
+script = ExtResource("1_0rqc0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=561280588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.030426025, 0.61499023, -1.0983887)
+shape = SubResource("BoxShape3D_g4v7s")
+debug_color = Color(0.7, 0, 0.011666489, 1)
