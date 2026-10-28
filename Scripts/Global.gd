@@ -3,7 +3,10 @@ extends Node
 #Vibecoded? Nah coded on frustration and music, I'm tired af as of writing this.
 
 #Get stuff ready
+var StartTimer = false
 @onready var RoundTimer = $RoundStartTimer
+#Player stuff
+var PlayerPoint
 
 #Loading
 #Attacks and traps
@@ -31,7 +34,7 @@ var Burst = load("res://Effects/burst_to_flames.tscn")
 var AttackID = 0 #Which attack to execute, each attack has an ID and will be set off by a timer.
 #Once this timer goes off the attack will execute right away, there is one timer.
 var AttackTimer = 5.0 #How long to execute the chosen attack.
-var Stage = 0 #Starting stage, nothing happens during stage 0 and only a cutscene. This will lead into everything else.
+static var Stage = 0 #Starting stage, nothing happens during stage 0 and only a cutscene. This will lead into everything else.
 #Card effects are not at all affected by the stage unless it's stage 0 
 
 #Stage 0: Cutscene/Card picking/Break time
@@ -102,7 +105,7 @@ func _process(delta: float) -> void:
 			AttackTimer -= 1*delta
 	
 	#Spawn in the card entities
-	if get_tree().get_nodes_in_group("LavaTrail").size() < 1 && TrailOfLava == true:
+	if get_tree().get_nodes_in_group("LavaTrail").size() < 1 && TrailOfLava == true && Stage == 1:
 		var trail = Enemy.instantiate()
 		trail.LavaTrail = true
 		trail.EnemySpeed = 6.9 #Haha funi number
@@ -113,3 +116,7 @@ func _process(delta: float) -> void:
 	#if RoundTimer.is_stopped() && Stage == 0:
 		#pass
 		
+
+
+func _on_round_start_timer_timeout() -> void:
+	Stage += 1

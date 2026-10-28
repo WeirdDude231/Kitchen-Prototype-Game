@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b6bn4gw6rg4gs" path="res://Scripts/Global.gd" id="1_tasv8"]
 [ext_resource type="PackedScene" uid="uid://dly2tv1ydo1wi" path="res://Objects/spawner.tscn" id="4_2mdd8"]
 [ext_resource type="Texture2D" uid="uid://ndf2tt37tlqi" path="res://Sprites/BrickWall.png" id="4_av41v"]
+[ext_resource type="Script" uid="uid://d0p51y7rc0nsp" path="res://Scripts/FuckThisWeirdScriptBS.gd" id="6_kgt8l"]
 [ext_resource type="PackedScene" uid="uid://v76vplikqqo" path="res://Objects/card_of_terror.tscn" id="6_lty13"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
@@ -136,6 +137,12 @@ MinRangeZ = -15.0
 [node name="RoundStartTimer" type="Timer" parent="." unique_id=440941688]
 wait_time = 2.5
 one_shot = true
+script = ExtResource("6_kgt8l")
+
+[node name="RoundTimer" type="Timer" parent="." unique_id=1824229175]
+wait_time = 20.0
 
 [node name="CardOfTerror" parent="." unique_id=952680835 instance=ExtResource("6_lty13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24413562, 0.5174308, -3.0976305)
+
+[connection signal="timeout" from="RoundStartTimer" to="." method="_on_round_start_timer_timeout"]

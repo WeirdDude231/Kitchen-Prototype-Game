@@ -42,11 +42,15 @@ var Invincible = false #When true, no damage
 @onready var DamagePart = $TextureRect
 @onready var BloodSplat = $BloodEffect #Consistent names? Never heard of it.
 @onready var BloodUI = $BloodSplatter
+@onready var CardPoint = $Head/CardPoint #The point of this is to tell the cards where to hover to
+@onready var InvinTimer = $InvincibleTimer
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	DamagePart.modulate.a = 0.0
 	BloodSplat.rotation.z = 90.0
+	
+	Global.PlayerPoint = CardPoint #Set this up in the Global script so that it can be used by the cards easily.
 
 func _unhandled_input(event: InputEvent) -> void:
 	#This moves the camera with the mouse, and only the camera.
@@ -113,7 +117,14 @@ func _headbob(time) -> Vector3:
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	if area.is_in_group("Hurtbox"):
+	if area.is_in_group("Hurtbox") && Invincible == false:
 		PlayerHP -= 1
 		DamageIndct.play("DmgIndication")
 		BloodSplat.emitting = true
+		Invincible = true
+		InvinTimer.start(1.0)
+
+
+func _on_invincible_timer_timeout() -> void:
+	Invincible = false
+	print("Not invincible")
