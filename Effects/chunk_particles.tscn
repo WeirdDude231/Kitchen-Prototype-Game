@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bqmo0x7vrbfyr"]
+
+[ext_resource type="Texture2D" uid="uid://wel5hh0306c2" path="res://Sprites/MeatChunk.png" id="1_pnuuq"]
+[ext_resource type="Script" uid="uid://f74bjhuotqwi" path="res://Scripts/DestroyParticle.gd" id="2_x6dib"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcnqv"]
+transparency = 4
+albedo_texture = ExtResource("1_pnuuq")
+billboard_mode = 3
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_d0u6y"]
+material = SubResource("StandardMaterial3D_fcnqv")
+size = Vector2(0.25, 0.25)
+
+[node name="ChunkParticles" type="CPUParticles3D" unique_id=1650055366]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fract_delta = false
+mesh = SubResource("QuadMesh_d0u6y")
+emission_shape = 3
+emission_box_extents = Vector3(1, 0.5, 0.5)
+initial_velocity_min = 2.5
+initial_velocity_max = 7.5
+anim_speed_min = 10.0
+anim_speed_max = 10.0
+script = ExtResource("2_x6dib")
+
+[node name="Timer" type="Timer" parent="." unique_id=1931652100]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

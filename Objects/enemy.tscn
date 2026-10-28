@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbtsh74eleirg" path="res://Sprites/DevilRat.png" id="4_756aq"]
 [ext_resource type="Texture2D" uid="uid://c8jhfhqcxxlpn" path="res://Sprites/PoisonSludgePlate.png" id="5_a7q3k"]
 [ext_resource type="Texture2D" uid="uid://cfe42sfsk0wby" path="res://Sprites/EvilRatPlate.png" id="7_gmmfk"]
+[ext_resource type="Texture2D" uid="uid://bimf2c3i15sp3" path="res://Sprites/Flame.png" id="8_a7q3k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3xos"]
 atlas = ExtResource("2_dnm5c")
@@ -127,6 +128,115 @@ animations = [{
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf5fn"]
+transparency = 1
+albedo_color = Color(1, 0.40000004, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+top_radius = 0.05908203
+bottom_radius = 0.05908203
+height = 13.426086
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmmfk"]
+transparency = 4
+albedo_texture = ExtResource("8_a7q3k")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_gmmfk")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="Animation" id="Animation_a7q3k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PillarOfFlame:material_override:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.40000004, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PillarOfFlame:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PillarOfFlame:material_override:emission")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gmmfk"]
+resource_name = "SummonAnim"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PillarOfFlame:material_override:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.40000004, 0, 1), Color(1, 0.65200007, 0.42000002, 0.50980395), Color(1, 0.8980392, 0.83137256, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PillarOfFlame:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(13, 1, 13)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PillarOfFlame:material_override:emission")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0.060000002, 0.060000002, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebisp"]
+_data = {
+&"RESET": SubResource("Animation_a7q3k"),
+&"SummonAnim": SubResource("Animation_gmmfk")
+}
+
 [node name="Enemy" type="CharacterBody3D" unique_id=2127081492 groups=["Enemy"]]
 script = ExtResource("1_edmjf")
 
@@ -147,7 +257,9 @@ avoidance_enabled = true
 wait_time = 0.05
 autostart = true
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1772262476]
+[node name="DropLavaTimer" type="Timer" parent="." unique_id=1425474211]
+wait_time = 0.2
+autostart = true
 
 [node name="Area3D" type="Area3D" parent="." unique_id=246934893]
 
@@ -155,6 +267,29 @@ autostart = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_g4v7s")
 
+[node name="PillarOfFlame" type="MeshInstance3D" parent="." unique_id=807528606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4266663, 0)
+material_override = SubResource("StandardMaterial3D_yf5fn")
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="CircleOfFire" type="CPUParticles3D" parent="." unique_id=1233517390]
+emitting = false
+amount = 64
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("QuadMesh_g4v7s")
+emission_shape = 2
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 9.8, 0)
+tangential_accel_min = 16.0
+tangential_accel_max = 32.0
+
+[node name="Summon" type="AnimationPlayer" parent="." unique_id=161909251]
+libraries/ = SubResource("AnimationLibrary_ebisp")
+
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
 [connection signal="timeout" from="EndKnock" to="." method="_on_end_knock_timeout"]
+[connection signal="timeout" from="DropLavaTimer" to="." method="_on_drop_lava_timer_timeout"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="animation_finished" from="Summon" to="." method="_on_summon_animation_finished"]

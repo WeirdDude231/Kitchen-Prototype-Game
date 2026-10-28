@@ -6,6 +6,5 @@
 script = ExtResource("1_c4mim")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=382203333]
-autostart = true
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

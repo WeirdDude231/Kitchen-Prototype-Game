@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://qoqdx61igt5h"]
+
+[ext_resource type="Texture2D" uid="uid://bimf2c3i15sp3" path="res://Sprites/Flame.png" id="1_xxcs3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggn3r"]
+transparency = 4
+albedo_texture = ExtResource("1_xxcs3")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_ggn3r")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf5fn"]
+albedo_color = Color(1, 0.31666666, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 12.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+top_radius = 0.9121094
+bottom_radius = 0.9121094
+height = 0.06640625
+
+[node name="SummoningFlame" type="Node3D" unique_id=731354379]
+
+[node name="Flame" type="CPUParticles3D" parent="." unique_id=1438620487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18046129, 0)
+amount = 64
+lifetime = 5.0
+mesh = SubResource("QuadMesh_g4v7s")
+emission_shape = 3
+emission_box_extents = Vector3(1, 0.145, 1)
+gravity = Vector3(0, 9.8, 0)
+
+[node name="Lava" type="MeshInstance3D" parent="." unique_id=1532953667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026367188, 0)
+material_override = SubResource("StandardMaterial3D_yf5fn")
+mesh = SubResource("CylinderMesh_g4v7s")

@@ -48,6 +48,7 @@ autostart = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=815949348]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006790161, -3.6522274, 0)
 shape = SubResource("BoxShape3D_g4v7s")
+debug_color = Color(1, 0.78999996, 0.3, 1)
 
 [node name="Spikes" type="MultiMeshInstance3D" parent="." unique_id=698687570]
 transform = Transform3D(1, 0, 0, 0, 0.004707348, 0, 0, 0, 1, 0, 0.2751317, 0)

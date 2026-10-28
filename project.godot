@@ -32,6 +32,8 @@ Hurtbox=""
 Enemy=""
 Melee=""
 Bullet=""
+Ground=""
+LavaTrail=""
 
 [input]
 

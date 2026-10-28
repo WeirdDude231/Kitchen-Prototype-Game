@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	else:
 		Multimesh.visible = true
 		Strip.visible = false
-		Box.position.y = 5.0
+		Box.position.y = 3.65
 
 func _on_destroy_strip_timeout() -> void:
 	queue_free()

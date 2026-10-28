@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cnv03wwj3sr6q"]
+
+[ext_resource type="Script" uid="uid://b7bou5fpb0484" path="res://Scripts/BloodSplatterCode.gd" id="1_ia0xd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxcq5"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4v7s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 0.12717316
+
+[node name="BloodParticle" type="Node3D" unique_id=885672347]
+script = ExtResource("1_ia0xd")
+
+[node name="BloodPart" type="MeshInstance3D" parent="." unique_id=1476821701]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_nxcq5")
+mesh = SubResource("SphereMesh_g4v7s")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1087693902]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=246538256]
+shape = SubResource("SphereShape3D_g4v7s")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-var SPEED = 8.5
+var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 var direction
 
@@ -14,12 +14,39 @@ var t_bob = 0.0
 
 var MeleeCooldown = 0.0 #How long to wait between melee swings
 
+var Invincible = false #When true, no damage
+
+#⠀⠀⠀⢘⠀⡂⢠⠆⠀⡰⠀⡀⢀⣠⣶⣦⣶⣶⣶⣶⣾⣿⣿⡿⢀⠈⢐⠈⠀⠀
+#⠀⠀⠀⡃⠀⡀⣞⡇⢰⠃⣼⣇⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⣰⣻⡀⢸⠀⠀⠀
+#⠀⠀⢐⢀⠀⣛⣽⣇⠘⢸⣿⣿⣷⣾⣿⣿⣿⣿⣿⣿⠟⢡⣾⣿⢿⡇⠀⡃⠀⠀
+#⠀⠀⢐⠀⠀⢳⣿⡯⡞⣾⣿⣿⣿⣿⣿⣿⢿⣿⠟⢁⣴⣿⣿⣿⡜⢷⠀⢘⠄⠀
+#⠀⠀⠂⡂⠸⡆⠙⠛⡵⣿⣿⣿⣿⣿⡿⠤⠛⣠⣴⣿⣿⠿⣟⣟⠟⢿⡆⢳⠀⠀
+#⠀⠀⠸⠁⠀⡾⠁⠀⠀⠀⠀⠉⠉⠉⠈⣠⡌⢁⠄⡛⠡⠉⠍⠙⢳⢾⠁⢸⠀⠀
+#⠀⠀⢈⠀⢀⠌⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣷⡎⠙⢬⣳⣪⡯⢜⣷⢸⠂⡈⠄⠀
+#⠀⠀⠐⡀⠀⢣⠀⠀⠀⠀⠀⠀⠀⣴⣿⣾⣷⢿⢻⣅⣌⡯⢛⣿⣿⡞⠠⡁⠂⠀
+#⠀⠀⠀⠄⠀⢉⡀⠀⠀⢀⡠⠤⠼⣇⣳⣿⣿⣟⡜⣿⣿⣿⣿⣿⣿⡇⠸⠡⠀⠀
+#⠀⠀⡀⠅⠀⠃⢀⡀⣿⡹⠗⢀⠛⠥⣺⣿⣿⡝⢹⣸⣿⣿⣿⣿⡏⠠⠰⠈⠐⠀
+#⠠⠈⠀⠄⣀⠀⠀⠸⠻⠦⠀⠀⠀⠀⠀⠉⠐⠀⠘⠻⢹⣿⡿⠃⠀⡀⠕⣈⠡⡄
+#⠀⠀⣴⡀⣬⠁⠀⠀⡁⠂⠀⣀⣀⠔⠌⠤⣀⡀⠀⠀⡈⢸⠪⠀⠀⡌⠤⠈⡀⣠
+#⠀⠀⣿⣿⣾⡇⠀⠀⠀⣴⢫⣾⠃⠠⢰⣶⣴⠶⣿⣦⠀⠀⠀⢄⣂⠀⠀⠰⠀⠙
+#⠀⠀⠉⠛⠛⠀⢀⣴⣿⢗⡟⠡⣄⣀⡀⠀⢀⣤⠞⡅⠀⠁⠀⡾⠀⠀⠠⡗⠀⢀
+#⠀⠀⠀⠀⠀⣴⡿⢋⠔⠃⠀⠀⠍⠙⠉⠈⠑⠁⠂⠀⠀⠀⡡⡁⣠⡼⣸⠅⠀⠘
+#⠀⠀⠀⣼⠛⢡⠔⠁⠐⣆⠀⠀⠀⠀⠀⠀⠀⠀⠁⢀⡔⡞⢛⣿⡿⠃⠏⠀⠀⢠
+#⠀⠀⠀⠈⠗⠀⠀⠀⠀⠘⣷⣀⢀⣀⣀⠀⡀⢀⣌⡧⠂⠀⡞⠛⡟⠀⠀⠀⡠⠜
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠓⠈⠙⠙⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⡂⠠⠤⢶
+
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var DamageIndct = $AnimationPlayer
+@onready var DamagePart = $TextureRect
+@onready var BloodSplat = $BloodEffect #Consistent names? Never heard of it.
+@onready var BloodUI = $BloodSplatter
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+	DamagePart.modulate.a = 0.0
+	BloodSplat.rotation.z = 90.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	#This moves the camera with the mouse, and only the camera.
@@ -65,8 +92,28 @@ func _physics_process(delta: float) -> void:
 	
 	if MeleeCooldown > 0.0: MeleeCooldown -= 1*delta
 		
+	#Handle blood effects on the UI.
+	if PlayerHP >= 4:
+		BloodUI.visible = false
+	else:
+		BloodUI.visible = true
+		match PlayerHP:
+			3:
+				BloodUI.frame = 1
+			2:
+				BloodUI.frame = 2
+			1:
+				BloodUI.frame = 3
+	
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time*bob_freq) * bob_amp
 	pos.x = cos(time*bob_freq/2) * bob_amp
 	return pos
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	if area.is_in_group("Hurtbox"):
+		PlayerHP -= 1
+		DamageIndct.play("DmgIndication")
+		BloodSplat.emitting = true
