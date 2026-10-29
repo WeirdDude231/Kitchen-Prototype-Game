@@ -61,10 +61,8 @@ func _physics_process(delta: float) -> void:
 		if distance <= 2.25:
 			if attTimer <= 0:
 				attTimer = EnemyAttSpd
-				player.PlayerHP -= 1
-				player.DamageIndct.play("DmgIndication")
-				player.BloodSplat.emitting = true
-				print("Player hit")
+				player._take_damage()
+				#print("Player hit")
 			else:
 				attTimer -= 1*delta
 		

@@ -103,11 +103,11 @@ func _physics_process(delta: float) -> void:
 		BloodUI.visible = true
 		match PlayerHP:
 			3:
-				BloodUI.frame = 1
+				BloodUI.frame = 0
 			2:
-				BloodUI.frame = 2
+				BloodUI.frame = 1
 			1:
-				BloodUI.frame = 3
+				BloodUI.frame = 2
 	
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -115,14 +115,16 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time*bob_freq/2) * bob_amp
 	return pos
 
+func _take_damage():
+	PlayerHP -= 1
+	DamageIndct.play("DmgIndication")
+	BloodSplat.emitting = true
+	Invincible = true
+	InvinTimer.start(1.0)
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Hurtbox") && Invincible == false:
-		PlayerHP -= 1
-		DamageIndct.play("DmgIndication")
-		BloodSplat.emitting = true
-		Invincible = true
-		InvinTimer.start(1.0)
+		_take_damage()
 
 
 func _on_invincible_timer_timeout() -> void:
