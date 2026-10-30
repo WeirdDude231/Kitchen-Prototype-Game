@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cbr5rgppt4xj0"]
+
+[ext_resource type="PackedScene" uid="uid://dero3thnxb7p1" path="res://Imports/Lava Pit Cooker.gltf" id="1_3bijl"]
+[ext_resource type="Texture2D" uid="uid://bimf2c3i15sp3" path="res://Sprites/Flame.png" id="2_iae8g"]
+[ext_resource type="Script" uid="uid://cevak13j84hc1" path="res://Scripts/LavaCookerCode.gd" id="2_kc2p3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1.6051025, 1.7970581, 1.5152588)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3bijl"]
+size = Vector3(2.3652496, 1.7970581, 2.464264)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kc2p3"]
+transparency = 4
+albedo_texture = ExtResource("2_iae8g")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_kc2p3")
+size = Vector2(0.25, 0.25)
+
+[node name="Cooker" unique_id=727487699 instance=ExtResource("1_3bijl")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+script = ExtResource("2_kc2p3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=333670323]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1727465293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06951904, 0.7622986, -0.040222168)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Area3D" type="Area3D" parent="." index="2" unique_id=722693687 groups=["Cooker"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1437235993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.066581726, 0.7622986, -0.020401001)
+shape = SubResource("BoxShape3D_3bijl")
+
+[node name="Embers" type="CPUParticles3D" parent="." index="3" unique_id=1697070129]
+mesh = SubResource("QuadMesh_g4v7s")
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 9.8, 0)

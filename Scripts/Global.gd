@@ -14,6 +14,9 @@ var PlayerMeleeBox = load("res://Objects/melee_zone.tscn")
 var SpikeStrip = load("res://Attacks/spike_strip.tscn")
 var LavaCircle = load("res://Attacks/lava_circle.tscn")
 
+#Usable stuff
+var LavaCooker = load("res://Objects/cooker.tscn")
+
 #Enemy assets
 var Enemy = load("res://Objects/enemy.tscn")
 var MeatEnemy = load("res://Sprites/LivingSteak.png")
@@ -39,7 +42,7 @@ static var Stage = 0 #Starting stage, nothing happens during stage 0 and only a 
 
 #Stage 0: Cutscene/Card picking/Break time
 #Stage 1: Summon enemies: This includes cards that chase the player or are active on the field.
-#Stage 2: Spawn traps and hazards: This also includes cards from the previous stage.
+#Stage 2: Spawn traps and hazards and cook food: This also includes cards from the previous stage.
 #Stage 3: Boss fight
 
 #Why am I doing a stage 0? I have no f##kin clue.
@@ -103,6 +106,11 @@ func _process(delta: float) -> void:
 			AttackTimer = 5.0
 		else:
 			AttackTimer -= 1*delta
+		
+		if get_tree().get_first_node_in_group("Cooker") == null:
+			var cooker = LavaCooker.instantiate()
+			cooker.global_position = Vector3(randf_range(-12.0, 12.0), -8.0, randf_range(-12.0, 12.0))
+			get_tree().current_scene.add_child(cooker)
 	
 	#Spawn in the card entities
 	if get_tree().get_nodes_in_group("LavaTrail").size() < 1 && TrailOfLava == true && Stage == 1:
@@ -119,4 +127,12 @@ func _process(delta: float) -> void:
 
 
 func _on_round_start_timer_timeout() -> void:
+	Stage += 1
+
+
+func _on_round_timer_timeout() -> void:
+	match Stage:
+		1:
+			get_tree().call_group("Enemy", "queue_free")
+	
 	Stage += 1

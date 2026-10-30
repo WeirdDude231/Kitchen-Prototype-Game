@@ -34,6 +34,7 @@ Melee=""
 Bullet=""
 Ground=""
 LavaTrail=""
+Cooker=""
 
 [input]
 

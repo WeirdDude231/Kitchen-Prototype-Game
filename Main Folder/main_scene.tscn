@@ -141,8 +141,11 @@ script = ExtResource("6_kgt8l")
 
 [node name="RoundTimer" type="Timer" parent="." unique_id=1824229175]
 wait_time = 20.0
+one_shot = true
+autostart = true
 
 [node name="CardOfTerror" parent="." unique_id=952680835 instance=ExtResource("6_lty13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24413562, 0.5174308, -3.0976305)
 
 [connection signal="timeout" from="RoundStartTimer" to="." method="_on_round_start_timer_timeout"]
+[connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]

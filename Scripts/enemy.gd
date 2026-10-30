@@ -92,9 +92,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 				KnockDir = Global.target.global_position.direction_to(global_position)
 				KnockTime.start()
 		if area.is_in_group("Hurtbox"):
-			var BurstEffect = Global.Burst.instantiate()
-			BurstEffect.global_position = global_position
-			get_tree().current_scene.add_child(BurstEffect)
 			queue_free()
 
 
