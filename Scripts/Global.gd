@@ -1,7 +1,7 @@
 extends Node
 
 #Vibecoded? Nah coded on frustration and music, I'm tired af as of writing this.
-#Test
+#Test I like fat bitches
 #Get stuff ready
 var StartTimer = false
 @onready var RoundTimer = $RoundStartTimer
